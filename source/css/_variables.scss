@@ -1,0 +1,537 @@
+// ==============================
+// Variables
+// ==============================
+
+// ========== Theme Color ========== //
+// Theme color config from `even/_config.yml`
+$theme-color-config: to-lower-case(hexo-theme-config('color'));
+
+// Default theme color map
+$theme-color-map: (
+  'default': #c05b4d #f8f5ec,
+  'mint green': #16982B #f5f5f5,
+  'cobalt blue': #0047AB #f0f2f5,
+  'hot pink': #FF69B4 #f8f5f5,
+  'dark violet': #9932CC #f5f4fa
+);
+
+// Check theme color config.
+// if it does not exist, use default theme color.
+@if not(map-has-key($theme-color-map, $theme-color-config)) {
+  $theme-color-config: 'default';
+}
+$theme-color-list: map-get($theme-color-map, $theme-color-config);
+
+// Default theme color of the site.
+$theme-color: nth($theme-color-list, 1) !default;
+
+// Deputy theme color of the site.
+$deputy-color: nth($theme-color-list, 2) !default;
+
+// ========== Color ========== //
+$black: #0a0a0a !default;
+$white: #fefefe !default;
+$light-gray: #e6e6e6 !default;
+$gray: #cacaca !default;
+$dark-gray: #999 !default;
+
+
+// ========== Global ========== //
+// Text color of title and post title
+$global-title-color: #ccc !default;
+
+// Text color of the body.
+$global-font-color: #bcbcbc !default;
+
+// Font size attribute applied to '<html>' and '<body>'.
+$global-font-size: 16px !default;
+
+// Global width of '<body>'.
+$global-body-width: 800px !default;
+
+// Padding of container main
+$global-container-padding: 0 20px !default;
+
+// Default line height for all type. `$global-lineheight` is 24px while `$global-font-size` is 16px.
+$global-lineheight: 1.5 !default;
+
+// Font family of the site.
+$global-font-family: 'Open Sans' !default;
+
+// Serif font family of the site.
+$global-serif-font-family: 'Open Sans' !default;
+
+// Background color of the site.
+$global-background: #181818 !default;
+
+// Headings font size of the site.
+$global-headings: (
+  h1: 26px,
+  h2: 24px,
+  h3: 20px,
+  h4: 16px,
+  h5: 14px,
+  h6: 14px
+) !default;
+
+
+// ========== Header ========== //
+// Padding of the site header.
+$header-padding: 20px 20px !default;
+
+// Font family: Open Sans
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 300;
+  src: url(https://fonts.gstatic.com/s/opensans/v20/mem5YaGs126MiZpBA-UN_r8OX-hpKKSTj5PW.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 300;
+  src: url(https://fonts.gstatic.com/s/opensans/v20/mem5YaGs126MiZpBA-UN_r8OVuhpKKSTj5PW.woff2) format('woff2');
+  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek-ext */
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 300;
+  src: url(https://fonts.gstatic.com/s/opensans/v20/mem5YaGs126MiZpBA-UN_r8OXuhpKKSTj5PW.woff2) format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 300;
+  src: url(https://fonts.gstatic.com/s/opensans/v20/mem5YaGs126MiZpBA-UN_r8OUehpKKSTj5PW.woff2) format('woff2');
+  unicode-range: U+0370-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 300;
+  src: url(https://fonts.gstatic.com/s/opensans/v20/mem5YaGs126MiZpBA-UN_r8OXehpKKSTj5PW.woff2) format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 300;
+  src: url(https://fonts.gstatic.com/s/opensans/v20/mem5YaGs126MiZpBA-UN_r8OXOhpKKSTj5PW.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 300;
+  src: url(https://fonts.gstatic.com/s/opensans/v20/mem5YaGs126MiZpBA-UN_r8OUuhpKKSTjw.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/opensans/v20/mem8YaGs126MiZpBA-UFWJ0bf8pkAp6a.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/opensans/v20/mem8YaGs126MiZpBA-UFUZ0bf8pkAp6a.woff2) format('woff2');
+  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek-ext */
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/opensans/v20/mem8YaGs126MiZpBA-UFWZ0bf8pkAp6a.woff2) format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/opensans/v20/mem8YaGs126MiZpBA-UFVp0bf8pkAp6a.woff2) format('woff2');
+  unicode-range: U+0370-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/opensans/v20/mem8YaGs126MiZpBA-UFWp0bf8pkAp6a.woff2) format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/opensans/v20/mem8YaGs126MiZpBA-UFW50bf8pkAp6a.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/opensans/v20/mem8YaGs126MiZpBA-UFVZ0bf8pkAg.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 600;
+  src: url(https://fonts.gstatic.com/s/opensans/v20/mem5YaGs126MiZpBA-UNirkOX-hpKKSTj5PW.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 600;
+  src: url(https://fonts.gstatic.com/s/opensans/v20/mem5YaGs126MiZpBA-UNirkOVuhpKKSTj5PW.woff2) format('woff2');
+  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek-ext */
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 600;
+  src: url(https://fonts.gstatic.com/s/opensans/v20/mem5YaGs126MiZpBA-UNirkOXuhpKKSTj5PW.woff2) format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 600;
+  src: url(https://fonts.gstatic.com/s/opensans/v20/mem5YaGs126MiZpBA-UNirkOUehpKKSTj5PW.woff2) format('woff2');
+  unicode-range: U+0370-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 600;
+  src: url(https://fonts.gstatic.com/s/opensans/v20/mem5YaGs126MiZpBA-UNirkOXehpKKSTj5PW.woff2) format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 600;
+  src: url(https://fonts.gstatic.com/s/opensans/v20/mem5YaGs126MiZpBA-UNirkOXOhpKKSTj5PW.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 600;
+  src: url(https://fonts.gstatic.com/s/opensans/v20/mem5YaGs126MiZpBA-UNirkOUuhpKKSTjw.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 700;
+  src: url(https://fonts.gstatic.com/s/opensans/v20/mem5YaGs126MiZpBA-UN7rgOX-hpKKSTj5PW.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 700;
+  src: url(https://fonts.gstatic.com/s/opensans/v20/mem5YaGs126MiZpBA-UN7rgOVuhpKKSTj5PW.woff2) format('woff2');
+  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek-ext */
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 700;
+  src: url(https://fonts.gstatic.com/s/opensans/v20/mem5YaGs126MiZpBA-UN7rgOXuhpKKSTj5PW.woff2) format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 700;
+  src: url(https://fonts.gstatic.com/s/opensans/v20/mem5YaGs126MiZpBA-UN7rgOUehpKKSTj5PW.woff2) format('woff2');
+  unicode-range: U+0370-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 700;
+  src: url(https://fonts.gstatic.com/s/opensans/v20/mem5YaGs126MiZpBA-UN7rgOXehpKKSTj5PW.woff2) format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 700;
+  src: url(https://fonts.gstatic.com/s/opensans/v20/mem5YaGs126MiZpBA-UN7rgOXOhpKKSTj5PW.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 700;
+  src: url(https://fonts.gstatic.com/s/opensans/v20/mem5YaGs126MiZpBA-UN7rgOUuhpKKSTjw.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+// Font size of the logo.
+$logo-font-size: 48px !default;
+
+// Font family of the logo.
+//$logo-font-family: 'Chancery', cursive, LiSu, sans-serif !default;
+$logo-font-family: 'Open Sans' !default;
+
+// Margin of menu item.
+$menu-item-margin-left: 10px !default;
+
+// Margin of menu item in mobile.
+$menu-item-mobile-margin: 5px !default;
+
+// Font size of menu item link.
+$menu-link-font-size: 18px !default;
+
+// Height of the mobile header.
+$mobile-navbar-height: 50px !default;
+
+// ========== Post ========== //
+// Margin bottom of post list.
+$post-list-margin-bottom: 20px !default;
+
+// Padding of the post.
+$post-padding: 1.5em 0 !default;
+
+// Border top of the post + post.
+$post-border: 1px solid $light-gray !default;
+
+// Font size of post title.
+$post-title-font-size: 27px !default;
+
+// Font weight of post title.
+$post-title-font-weight: 400 !default;
+
+// Margin top of the post meta (post time).
+$post-meta-margin-top: 5px !default;
+
+// Font color of the post meta.
+$post-meta-font-color: $dark-gray !default;
+
+// Border bottom of the read more link when hover it.
+$post-readMore-border-bottom: 1px solid $theme-color !default;
+
+// Margin top of the post footer.
+$post-footer-margin-top: 20px !default;
+
+// Border top of post footer.
+$post-footer-border-top: 1px solid $light-gray !default;
+
+// Padding of the post tags.
+$post-tags-padding: 15px 0 !default;
+
+// Font size of post pagination.
+$post-nav-font-size: 18px !default;
+
+
+// ========== TOC ========== //
+// Width of the post toc.
+$post-toc-width: 200px !default;
+
+// Backgroud color of the post toc.
+$post-toc-backgroud: rgba($deputy-color, 0.6) !default;
+
+// Margin left of the post toc.
+$post-toc-margin-left: $global-body-width - 15px !default;
+
+// Font size of the post toc title.
+$post-toc-title-size: 20px !default;
+
+// Font size of the post toc content.
+$post-toc-content: 15px !default;
+
+// List style of the post toc list.
+$post-toc-list-style: square !default;
+
+// Max screen media of the post toc.
+$toc-max-sreen-width: 2 * $post-toc-width + $post-toc-margin-left !default;
+
+// ========== Content ========== //
+// Headings anchor.
+$content-headings-anchor: "" !default;
+
+// Border bottom of the link when hover it.
+$content-link-border: 1px solid $theme-color !default;
+
+// Background color of the blockquote.
+$content-blockquote-backgroud: rgba($theme-color, 0.05) !default;
+
+// Border left of the blockquote.
+$content-blockquote-border-left: 3px solid rgba($theme-color, 0.3) !default;
+
+// Border color of the table.
+$content-table-border-color: darken($deputy-color, 3%) !default;
+
+// ========== Code ========== //
+// Color of the code.
+$code-color: #c7254e !default;
+
+// Font size of code.
+$code-font-size: 13px !default;
+
+// Font family of the code.
+$code-font-family: Consolas, Monaco, Menlo, Consolas, monospace !default;
+
+// Color of code highlight, solarized.
+$code-highlight-color: (
+  comment: #93a1a1,
+  keyword: #8be9fd,
+  number: #50fa7b,
+  title: #268bd2,
+  attribute: #b58900,
+  symbol: #cb4b16,
+  built_in: #dc322f
+) !default;
+
+// Code type list.
+$code-type-list: (
+  html: "HTML",
+  js: "JavaScript",
+  bash: "Bash",
+  css: "CSS",
+  scss: "Scss",
+  java: "Java",
+  xml: "XML",
+  python: "Python",
+  json: "JSON",
+  swift: "Swift",
+  ruby: "Ruby",
+  php: "PHP",
+  c: "C",
+  cpp: "C++",
+  scheme: "Scheme",
+  objectivec: "Objective-C",
+  yml: "YAML",
+  stylus: "Stylus",
+  sql: "SQL",
+  http: "HTTP",
+  go: "Go",
+  kotlin: "Kotlin"
+) !default;
+
+// Color of the code background.
+$code-background: #252525 !default;
+
+
+// ========== Pagination ========== //
+// Margin of the pagination.
+$pagination-margin: 2em 0 !default;
+
+// Font size of the pagination (Without post, post pagination see line 140).
+$pagination-font-size: 20px !default;
+
+
+// ========== Footer ========== //
+// Margin top of the footer.
+$footer-margin-top: 2em !default;
+
+// Margin left of the social link.
+$social-link-margin-left: 10px !default;
+
+// Font size of the social icon.
+$social-icon-font-size: 16px !default;
+
+// Margin of the copyright.
+$copyright-margin: 10px 0 !default;
+
+
+// ========== Archive ========== //
+// Text color of the archive title
+$archive-title-color: #428bca !default;
+
+// Hover color of the archive title
+$archive-title-hover-color: #2a6496 !default;
+
+// Margin of the archive.
+$archive-margin: 2em 0px !default;
+
+// Max width of the archive.
+$archive-max-width: 550px !default;
+
+// Font size of the archive name.
+$archive-name-font-size: 30px !default;
+
+// Font size of the collection title.
+$collection-title-font-size: 28px !default;
+
+// Padding of the archive post.
+$archive-post-padding: 3px 20px !default;
+
+// Padding of the archive post in mobile.
+$archive-post-mobile-padding: 5px 10px !default;
+
+// Font size of the archive post time in mobile.
+$archive-post-mobile-time-font-size: 13px !default;
+
+// Border left of the archive post, use $archive-post-hover-border-left when hover it.
+$archive-post-border-left: 1px solid $gray !default;
+$archive-post-hover-border-left: 3px solid $archive-title-hover-color !default;
+
+// Transition of the archive post when hover it.
+$archive-post-hover-transition: 0.2s ease-out !default;
+
+// Transform of the archive post when hover it.
+$archive-post-hover-transform: translateX(4px) !default;
+
+
+// ========== Tags ========== //
+// Font soze of the tag cloud title.
+$tag-cloud-title-size: 18px !default;
+
+// Border bottom of the tag cloud title.
+$tag-cloud-title-border-bottom: 2px solid $theme-color !default;
+
+// Margin of the tag cloud tags link.
+$tag-cloud-tags-link-margin: 5px 10px !default;
+
+
+// ========== Categories ========== //
+// Font soze of the categories title.
+$categories-title-size: 18px !default;
+
+// Border bottom of the categories title.
+$categories-title-border-bottom: 2px solid $theme-color !default;
+
+// Margin of the categories tags link.
+$categories-tags-link-margin: 5px 10px !default;
+
+// Font size of the category count
+$category-count-font-size: 12px !default;
