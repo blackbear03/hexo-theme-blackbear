@@ -1,76 +1,56 @@
-<article class="post">
-  <header class="post-header">
-    <h1 class="post-title">
-      <% if (is_home()) { %>
-      <a class="post-link" href="<%- url_for(post.path) %>"><%= post.title %></a>
-      <% } else { %>
-      <%= post.title %>
-      <% } %>
-    </h1>
+<%  
+  var isArchivesPage = !!page.archive;  
+  var isArchivesMode = theme.mode.toLowerCase() === 'archives';  
+%>
 
-    <div class="post-meta">
-      <span class="post-time">
-        <%- full_date(post.date, 'YYYY-MM-DD') %>
-      </span>
-      <% if (post.author) { %>
-      <span class="post-author">
-        / <%= post.author %>
-      </span>
-      <% } %>
-      <% if (post.categories && post.categories.length) { %>
-      <span class="post-category">
-        <% post.categories.forEach(function(category) { %>
-        <a href="<%= url_for(category.path) %>"><%= category.name %></a>
-        <% }); %>
-      </span>
-      <% } %>
-      <% if (theme.leancloud && theme.leancloud.app_id && theme.leancloud.app_key) { %>
-      <span class="post-visits" data-url="<%= url_for(post.path) %>" data-title="<%= post.title %>">
-        <%= __('posts.visits') %> 0
-      </span>
-      <% } %>
-    </div>
-  </header>
-
-  <%- partial("../_partial/_post/toc.ejs") %>
-
-  <div class="post-content">
-    <% if (is_home()) { %>
-    <% var excerpt = ""; %>
-    <% if (post.description) { %>
-    <% excerpt = '<p>' + post.description + '</p>'; %>
-    <% } else if (post.excerpt) { %>
-    <% excerpt = post.excerpt; %>
-    <% } %>
-    <% if (excerpt) { %>
-    <%- excerpt %>
-    <div class="read-more">
-      <a href="<%= url_for(post.path) %>" class="read-more-link"><%- __('posts.readmore') %></a>
-    </div>
-    <% } else { %>
-    <%- post.content %>
-    <% } %>
-    <% } else { %>
-    <%- post.content %>
-    <% } %>
+<section id="archive" class="archive">
+  <% if (!page.prev) { %>
+  <% if (page.tag) { %>
+  <div class="archive-title tag">
+    <h2 class="archive-name"><%= page.tag %></h2>
   </div>
-
-  <% if (!is_home()) { %>
-  <%- partial("../_partial/_post/copyright.ejs") %>
-  <%- partial("../_partial/_post/reward.ejs") %>
+  <% } else if (page.category) { %>
+  <div class="archive-title category">
+    <h2 class="archive-name"><%= page.category %></h2>
+  </div>
+  <% } else if (isArchivesPage) { %>
+  <div class="archive-title">
+    <span class="archive-post-counter">
+      <%= _p("counter.archives", site.posts.length) %>
+    </span>
+  </div>
+  <% } %>
   <% } %>
 
-  <% if (!is_home()) { %>
-  <footer class="post-footer">
-    <% if (post.tags && post.tags.length) { %>
-    <div class="post-tags">
-      <% post.tags.forEach(function(tag) { %>
-      <a href="<%= url_for(tag.path) %>"><%= tag.name %></a>
-      <% }); %>
-    </div>
-    <% } %>
-    <%- partial("../_partial/pagination.ejs") %>
-  </footer>
+  <% var year; %>
+  <% page.posts.forEach(function(post) { %>
+  <% if (isArchivesPage || isArchivesMode) { %>
+  <% post.year = date(post.date, 'YYYY'); %>
+  <% if (post.year !== year) { %>
+  <% year = post.year; %>
+  <div class="collection-title">
+    <h2 class="archive-year">
+      <a href="<%- url_for(config.archive_dir + '/' + year) %>" class="archive-year"><%= year %></a>
+    </h2>
+  </div>
+  <% } %>
   <% } %>
 
-</article>
+  <div class="archive-post">
+    <span class="archive-post-time">
+      <% if (isArchivesPage || isArchivesMode) { %>
+      <%= date(post.date, 'MM-DD') %>
+      <% } else { %>
+      <%= date(post.date, 'YYYY-MM-DD') %>
+      <% } %>
+    </span>
+    <span class="archive-post-title">
+      <a href="<%= url_for(post.path) %>" class="archive-post-link">
+        <%= post.title %>
+      </a>
+    </span>
+  </div>
+  <% }); %>
+</section>
+
+<%- partial('../_partial/pagination.ejs') %>
