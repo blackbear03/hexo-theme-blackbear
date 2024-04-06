@@ -18,4 +18,11 @@ Modify `yoursite/_config.yml`:
 ## Plugins: http://hexo.io/plugins/
 ## Themes: http://hexo.io/themes/
 theme: blackbear
+# Deployment
+## Docs: https://hexo.io/docs/one-command-deployment
+deploy:
+  type: 'git'
+  repo: https://<your private token>@github.com/blackbear03/blackbear03.github.io.git
+  branch: master
+  message: Happy writing :)
 ```
