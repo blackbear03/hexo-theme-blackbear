@@ -5,6 +5,7 @@ A simple theme for Hexo inspired by [even](https://github.com/ahonn/hexo-theme-e
 [ Live Preview](https://blog.next-x.xyz/)
 
 ## How To Use It
+Run the comand-lines below:
 ```bash
 npm install hexo-renderer-ejs hexo-renderer-dartsass --save
 git clone https://github.com/blackbear03/hexo-theme-blackbear themes/blackbear
