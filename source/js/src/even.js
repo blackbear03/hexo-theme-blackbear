@@ -1,6 +1,5 @@
 (function (window) {
   'use strict';
-
   function Even(config) {
     this.config = config;
   }
@@ -28,7 +27,7 @@
   };
 
   Even.prototype.navbar = function () {
-    var $nav = $('#mobile-navbar');
+    var $nav = $("#mobile-navbar");
     var $navIcon = $('.mobile-navbar-icon');
 
     var slideout = new Slideout({

@@ -1,4 +1,4 @@
-<% if (page.comments && !is_home()) { %>  
+<% if (page.comments && !is_home() && !is_page()) { %>  
   <div class="comments" id="comments">  
     <% if (theme.disqus_shortname) { %>  
       <div id="disqus_thread">  
